@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import { IModel, modelConfig, modelKeysDefault } from "./utils/default";
 
 export interface IUser extends IModel {
-    avatar: string;
+    avatar?: string;
     name: string;
     email: string;
     password: string;
