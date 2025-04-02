@@ -1,0 +1,26 @@
+import * as process from "node:process";
+
+export const environment = {
+	port: parseInt(process.env.PORT ?? "4000"),
+	host: process.env.HOST ?? "localhost",
+	smtpHost: process.env.SMTP_HOST ?? "",
+	smtpPort: parseInt(process.env.SMTP_PORT ?? "587"),
+	smtpEmail: process.env.SMTP_EMAIL ?? "",
+	smtpPassword: process.env.SMTP_PASSWORD ?? "",
+	apiKey: process.env.API_KEY ?? "",
+	mongoUrl: process.env.MONGO_URL ?? "",
+	mongoDb: process.env.MONGO_DB ?? "",
+	bcryptSalt: parseInt(process.env.BCRYPT_SALT ?? "10"),
+	tokenSecret: process.env.TOKEN_SECRET ?? "",
+	rabbitmqUser: process.env.RABBITMQ_USER ?? "",
+	rabbitmqPassword: process.env.RABBITMQ_PASSWORD ?? "",
+	rabbitmqHost: process.env.RABBITMQ_HOST ?? "",
+	rabbitmqPort: parseInt(process.env.RABBITMQ_PORT ?? "5672"),
+	rabbitmqManagementPort: parseInt(process.env.RABBITMQ_MANAGEMENT_PORT ?? "15672"),
+	enabledRabbitmq: process.env.ENABLE_RABBITMQ === "true",
+	enabledRabbitQueueConsume: process.env.ENABLE_QUEUE_CONSUME === "true",
+	uploadServiceType: process.env.UPLOAD_SERVICE_TYPE ?? "IMGUR",
+	rabbitmqVhost: process.env.RABBITMQ_VHOST ?? "",
+	storageBucketName: process.env.STORAGE_BUCKET_NAME ?? "",
+	enabledGcloudStorage: process.env.ENABLE_GCLOUD_STORAGE === "true",
+};

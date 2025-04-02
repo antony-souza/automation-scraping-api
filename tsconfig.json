@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+      "target": "es2020",
+      "module": "node16",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "lib": [
+        "es2020"
+      ],
+      "strict": true,
+      "skipLibCheck": true,
+      "paths": {
+        "@src/*": [
+          "src/*"
+        ]
+      },
+      "outDir": "./dist",
+      "baseUrl": ".",
+      "removeComments": true,
+      "allowJs": true,
+      "rootDir": "./src",
+      "sourceMap": true,
+      "moduleResolution": "node16",
+    },
+    "include": [
+      "./src/**/*",
+      "global.d.ts"
+    ]
+  }
+  
