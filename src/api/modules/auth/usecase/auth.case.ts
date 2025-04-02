@@ -1,5 +1,4 @@
 import { userModel } from "@src/models/user.model";
-import { ApiResponse } from "@src/api/_types/api-response.type";
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken";
 import { environment } from "@src/enviroment";
@@ -12,6 +11,7 @@ type AuthData = {
 
 export class AuthUseCase implements ICaseContract {
   async handler(data: AuthData) {
+
     const findUser = await userModel.findOne({
       email: data.email,
       active: true
