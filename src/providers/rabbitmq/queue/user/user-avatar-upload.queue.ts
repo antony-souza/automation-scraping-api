@@ -3,7 +3,7 @@ import { logger } from "io-logger";
 import { IRabbitMqQueue, QueueName } from "../../rabbitmq.interface.queues";
 import UploadFileFactoryService from "@src/utils/upload/upload-file.service";
 
-interface IUserApiUploadAvatarUseCaseResponse {
+interface IUserApiUpload {
 	userId: string;
 	buffer: {
 		type: Buffer;
@@ -13,7 +13,7 @@ interface IUserApiUploadAvatarUseCaseResponse {
 export class UserAvatarUploadQueue implements IRabbitMqQueue {
 	queueName: QueueName = "avatar";
 
-	async handler(data: IUserApiUploadAvatarUseCaseResponse): Promise<void> {
+	async handler(data: IUserApiUpload): Promise<void> {
 
 		const { userId, buffer } = data;
 
