@@ -1,7 +1,7 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
 import { RabbitmqService } from "@src/providers/rabbitmq/rabbitmq.service";
 
-export class SendAvatarQueueUseCase implements ICaseContract {
+export class SendAvatarForQueueUseCase implements ICaseContract {
     async handler(userId: string, avatar: Express.Multer.File) {
         const rabbitmqService = new RabbitmqService()
         await rabbitmqService.sendToQueue("avatar", {
