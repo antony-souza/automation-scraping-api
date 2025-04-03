@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "tsx watch --env-file=.env src/bootstrap.ts"
+  },
   "dependencies": {
     "@types/amqplib": "^0.10.7",
     "@types/bcrypt": "^5.0.2",
@@ -9,6 +12,7 @@
     "@types/mongoose": "^5.11.96",
     "@types/multer": "^1.4.12",
     "@types/nodemailer": "^6.4.17",
+    "@types/qrcode-terminal": "^0.12.2",
     "amqplib": "^0.10.7",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
@@ -20,8 +24,10 @@
     "mongoose": "^8.13.1",
     "multer": "^1.4.5-lts.2",
     "nodemailer": "^6.10.0",
+    "qrcode-terminal": "^0.12.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
+    "whatsapp-web.js": "^1.27.0",
     "zod": "^3.24.2"
   }
 }

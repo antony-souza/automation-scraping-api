@@ -15,11 +15,8 @@ async function bootstrap() {
 
     app.use(routes);
 
-    await mongoose.connect(environment.mongoUrl, {
-        dbName: environment.mongoDb
-    }).then(() => {
+    await mongoose.connect(environment.mongoUrl).then(() => {
         logger.info("Connected to DB");
-
     });
 
     await ProviderInit.handler();

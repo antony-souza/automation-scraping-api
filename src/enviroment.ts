@@ -8,7 +8,7 @@ export const environment = {
 	smtpEmail: process.env.SMTP_EMAIL ?? "",
 	smtpPassword: process.env.SMTP_PASSWORD ?? "",
 	apiKey: process.env.API_KEY ?? "",
-	mongoUrl: process.env.MONGO_URL ?? "",
+	mongoUrl: process.env.MONGO_URI ?? "",
 	mongoDb: process.env.MONGO_DB ?? "",
 	bcryptSalt: parseInt(process.env.BCRYPT_SALT ?? "10"),
 	tokenSecret: process.env.TOKEN_SECRET ?? "",
