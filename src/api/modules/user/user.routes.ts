@@ -6,14 +6,14 @@ import { multerUpload } from "@src/api/core/multer.config";
 
 const controller = new UserApiController();
 
-export const userApiRoutes = Router();
+export const userRoutes = Router();
 
-userApiRoutes.post("/",
+userRoutes.post("/",
     validationBodyMiddleware(userSchema),
     controller.create
 );
 
-userApiRoutes.post("/send-avatar",
+userRoutes.post("/send-avatar",
     multerUpload.single("avatar"),
     controller.sendAvatarForQueue
 );

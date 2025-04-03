@@ -1,5 +1,5 @@
 import { genericResponseControllerUtil } from "../utils/generic-response";
-import { SendMessageForQueueUseCase } from "./message.schema";
+import { SendMessageForQueueUseCase } from "./usecase/send-message-for-queue.usecase";
 import { Request, Response } from "express";
 
 export class MessageController {

@@ -1,4 +1,4 @@
-import { logger } from "io-logger";
+import { logger } from "../../utils/logger.utils";
 import { QueueName } from "./rabbitmq.interface.queues";
 import { RabbitmqProvider } from "./rabbitmq.provider";
 

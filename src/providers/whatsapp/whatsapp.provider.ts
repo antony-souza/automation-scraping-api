@@ -2,6 +2,7 @@ import { Client, LocalAuth } from "whatsapp-web.js";
 import * as qrcode from "qrcode-terminal";
 import { IProvider } from "../provider.interface";
 import { logger } from "@src/utils/logger.utils";
+import { environment } from "@src/enviroment";
 
 export class WhatsAppProvider implements IProvider {
     public static Instance: WhatsAppProvider;
@@ -15,6 +16,11 @@ export class WhatsAppProvider implements IProvider {
     }
 
     startProvider() {
+        if(!environment.whatsappEnabled){
+            logger.info("WhatsApp provider is disabled.");
+            return;
+        }
+
         this.client = new Client({
             authStrategy: new LocalAuth(),
         });

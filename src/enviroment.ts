@@ -9,7 +9,6 @@ export const environment = {
 	smtpPassword: process.env.SMTP_PASSWORD ?? "",
 	apiKey: process.env.API_KEY ?? "",
 	mongoUrl: process.env.MONGO_URI ?? "",
-	mongoDb: process.env.MONGO_DB ?? "",
 	bcryptSalt: parseInt(process.env.BCRYPT_SALT ?? "10"),
 	tokenSecret: process.env.TOKEN_SECRET ?? "",
 	rabbitmqUser: process.env.RABBITMQ_USER ?? "",
@@ -20,8 +19,6 @@ export const environment = {
 	enabledRabbitmq: process.env.ENABLE_RABBITMQ === "true",
 	enabledRabbitQueueConsume: process.env.ENABLE_QUEUE_CONSUME === "true",
 	rabbitmqVhost: process.env.RABBITMQ_VHOST ?? "",
-	storageBucketName: process.env.STORAGE_BUCKET_NAME ?? "",
-	enabledGcloudStorage: process.env.ENABLE_GCLOUD_STORAGE === "true",
 	uploadServiceType: process.env.UPLOAD_SERVICE_TYPE ?? "IMGUR",
 	imgurApiUrl: process.env.IMGUR_API_URL,
 	imgurRefreshTokenUrl: process.env.IMGUR_REFRESH_TOKEN_URL,
@@ -30,4 +27,5 @@ export const environment = {
 	imgurAlbumId: process.env.IMGUR_ALBUM_ID,
 	imgurClientId: process.env.IMGUR_CLIENT_ID,
 	imgurClientSecret: process.env.IMGUR_CLIENT_SECRET,
+	whatsappEnabled: process.env.WHATSAPP_ENABLED === "true",
 };
