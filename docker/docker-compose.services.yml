@@ -1,7 +1,7 @@
 services:
   rabbitmq:
     image: rabbitmq:management
-    container_name: rabbitmq
+    container_name: rabbitmq_tom
     restart: always
     env_file:
       - ../.env
@@ -15,13 +15,13 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - docx-network
+      - tom_network
 
 volumes:
   rabbitmq_data:
     driver: local
 
 networks:
-  docx-network:
-    name: docx-network
+  tom_network:
+    name: tom_network
     driver: bridge

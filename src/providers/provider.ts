@@ -8,7 +8,7 @@ const providerList: IProvider[] = [
   new WhatsAppProvider()
 ];
 
-export class ProviderInit {
+export class ProvidersInit {
     static async handler() {
       for (const provider of providerList) {
         await provider.startProvider();

@@ -1,7 +1,7 @@
 import * as amqp from 'amqplib';
 import { IProvider } from '../provider.interface';
 import { environment } from '@src/enviroment';
-import { logger } from 'io-logger';
+import { logger } from '@src/utils/logger.utils';
 import { queueList } from './queue/queue';
 
 export class RabbitmqProvider implements IProvider {

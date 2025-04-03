@@ -1,7 +1,7 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import { environment } from '@src/enviroment';
-import { logger } from 'io-logger';
+import { logger } from '@src/utils/logger.utils';
 import { IUploadFactoryServiceType } from '../upload-factory-type';
 
 export class ImgurUploadService implements IUploadFactoryServiceType {
@@ -70,7 +70,7 @@ export class ImgurUploadService implements IUploadFactoryServiceType {
         response.status === 403 &&
         response.data.data.error === 'The access token provided is invalid'
       ) {
-        logger.alert('Access token invalid. Refreshing token...');
+        logger.warn('Access token invalid. Refreshing token...');
         await this.refreshAccessToken();
         return this.upload(file);
       }

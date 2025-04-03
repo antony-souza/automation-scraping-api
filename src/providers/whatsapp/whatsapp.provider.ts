@@ -1,7 +1,7 @@
 import { Client, LocalAuth } from "whatsapp-web.js";
 import * as qrcode from "qrcode-terminal";
 import { IProvider } from "../provider.interface";
-import { logger } from "io-logger";
+import { logger } from "@src/utils/logger.utils";
 
 export class WhatsAppProvider implements IProvider {
     public static Instance: WhatsAppProvider;
@@ -22,10 +22,10 @@ export class WhatsAppProvider implements IProvider {
             qrcode.generate(qr, { small: true });
             logger.info("QR code generated");
         });
-        this.client.on("authenticated", () => logger.debug("WhatsApp autenticado com sucesso!"));
-        this.client.on("ready", () => logger.debug("WhatsApp conectado!"));
+        this.client.on("authenticated", () => logger.info("WhatsApp autenticado com sucesso!"));
+        this.client.on("ready", () => logger.info("WhatsApp conectado!"));
         this.client.on("disconnected", (reason) => {
-            logger.alert(`Whatsapp desconectado: ${reason}`);
+            logger.warn(`Whatsapp desconectado: ${reason}`);
             this.client.initialize();
         });
         this.client.initialize();

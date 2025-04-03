@@ -1,5 +1,5 @@
 ﻿import { userModel } from "@src/models/user.model";
-import { logger } from "io-logger";
+import { logger } from "@src/utils/logger.utils";
 import { IRabbitMqQueue, QueueName } from "../../rabbitmq.interface.queues";
 import UploadFileFactoryService from "@src/utils/upload/upload-file.service";
 

@@ -1,10 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import { environment } from "./enviroment";
-import { logger } from "io-logger";
-import { ProviderInit } from "./providers/provider";
+import { ProvidersInit } from "./providers/provider";
 import { routes } from "./routes";
 import cors from "cors";
+import { logger } from "./utils/logger.utils";
 
 async function bootstrap() {
     const app = express();
@@ -19,7 +19,7 @@ async function bootstrap() {
         logger.info("Connected to DB");
     });
 
-    await ProviderInit.handler();
+    await ProvidersInit.handler();
 
     process.on("uncaughtException", (err) => {
         logger.error(err);
