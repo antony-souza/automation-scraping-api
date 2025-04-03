@@ -1,4 +1,4 @@
-import { environment } from "@src/enviroment";
+import { environment } from "@src/environment";
 import { userModel } from "@src/models/user.model";
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";

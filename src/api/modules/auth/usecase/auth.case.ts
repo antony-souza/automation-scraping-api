@@ -1,7 +1,7 @@
 import { userModel } from "@src/models/user.model";
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken";
-import { environment } from "@src/enviroment";
+import { environment } from "@src/environment";
 import { ICaseContract } from "@src/api/contracts/case.contract";
 
 type AuthData = {

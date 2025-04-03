@@ -2,7 +2,7 @@ import { Client, LocalAuth } from "whatsapp-web.js";
 import * as qrcode from "qrcode-terminal";
 import { IProvider } from "../provider.interface";
 import { logger } from "@src/utils/logger.utils";
-import { environment } from "@src/enviroment";
+import { environment } from "@src/environment";
 
 export class WhatsAppProvider implements IProvider {
     public static Instance: WhatsAppProvider;

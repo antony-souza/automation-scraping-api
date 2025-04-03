@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { environment } from "./enviroment";
+import { environment } from "./environment";
 import { ProvidersInit } from "./providers/provider";
 import { routes } from "./routes";
 import cors from "cors";

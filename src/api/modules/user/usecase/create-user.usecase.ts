@@ -1,5 +1,5 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
-import { environment } from "@src/enviroment";
+import { environment } from "@src/environment";
 import { IUser, userModel } from "@src/models/user.model";
 import * as bcrypt from "bcrypt"
 

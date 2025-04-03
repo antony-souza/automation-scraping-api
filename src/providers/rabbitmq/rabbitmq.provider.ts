@@ -1,6 +1,6 @@
 import * as amqp from 'amqplib';
 import { IProvider } from '../provider.interface';
-import { environment } from '@src/enviroment';
+import { environment } from '@src/environment';
 import { logger } from '@src/utils/logger.utils';
 import { queueList } from './queue/queue';
 

@@ -1,4 +1,4 @@
-import { environment } from "@src/enviroment";
+import { environment } from "@src/environment";
 import { NextFunction, Request, Response } from "express";
 
 export const needKeyApiHeadersMiddleware = (req: Request, res: Response, next: NextFunction) => {

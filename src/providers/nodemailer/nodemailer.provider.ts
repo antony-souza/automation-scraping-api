@@ -1,4 +1,4 @@
-import { environment } from '@src/enviroment';
+import { environment } from '@src/environment';
 import * as nodemailer from 'nodemailer';
 
 export class NodemailerProvider {

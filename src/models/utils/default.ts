@@ -9,7 +9,7 @@ export const modelConfig = {
     _id:{
         type: String,
         require: false,
-        default: () => randomUUID
+        default: randomUUID
     },
     enabled: {
       type: Boolean,

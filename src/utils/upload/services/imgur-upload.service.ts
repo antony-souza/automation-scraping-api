@@ -1,6 +1,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
-import { environment } from '@src/enviroment';
+import { environment } from '@src/environment';
 import { logger } from '@src/utils/logger.utils';
 import { IUploadFactoryServiceType } from '../upload-factory-type';
 
