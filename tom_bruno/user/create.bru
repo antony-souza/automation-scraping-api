@@ -5,7 +5,25 @@ meta {
 }
 
 post {
-  url: {{host}}/user
-  body: none
+  url: {{host}}/user/create
+  body: json
   auth: none
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+body:json {
+  {
+    "name": "Antony Souza",
+    "email": "antonysouza.duckenterprise@gmail.com",
+    "password": "2011816-ref",
+    "hour": "18:20",
+    "turn": "Noite",
+    "space": "b00d99a2-790d-4cb3-a121-f736864dd6b0",
+    "modality": "47921910-f10b-49a5-a778-aa93b3de1193",
+    "role": "admin"
+  }
+  
 }

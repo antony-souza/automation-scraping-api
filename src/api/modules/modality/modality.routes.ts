@@ -7,7 +7,7 @@ export const controller = new ModalityController();
 
 export const modalityRoutes = Router();
 
-modalityRoutes.post("/creating-modality",
+modalityRoutes.post("/create",
     validationBodyMiddleware(modalitySchema),
     controller.creatingModality
 );

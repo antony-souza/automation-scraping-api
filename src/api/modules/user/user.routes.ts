@@ -8,7 +8,7 @@ const controller = new UserApiController();
 
 export const userRoutes = Router();
 
-userRoutes.post("/",
+userRoutes.post("/create",
     validationBodyMiddleware(userSchema),
     controller.create
 );
