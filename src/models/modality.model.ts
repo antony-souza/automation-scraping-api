@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IModel, modelConfig, modelKeysDefault } from "./utils/default";
+import { IModel, modelConfigDefault, modelKeysDefault } from "./utils/default";
 
 export interface IModality extends IModel {
     name: string;
@@ -18,5 +18,5 @@ export const modalityModel = model<IModality>("modality", new Schema({
         required: true,
     },
 },
-    modelConfig
+modelConfigDefault
 ));

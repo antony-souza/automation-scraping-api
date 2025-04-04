@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IModel, modelConfig, modelKeysDefault } from "./utils/default";
+import { IModel, modelConfigDefault, modelKeysDefault } from "./utils/default";
 
 export interface ISpace extends IModel {
     name: string;
@@ -16,4 +16,4 @@ export const spaceModel = model<ISpace>("space", new Schema({
         type: String,
         required: true,
     },
-},modelConfig));
+},modelConfigDefault));

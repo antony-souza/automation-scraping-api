@@ -1,6 +1,6 @@
 import {randomUUID} from "node:crypto"
 
-export const modelConfig = {
+export const modelConfigDefault = {
     timestamps: true,
     versionKey: false,
   }

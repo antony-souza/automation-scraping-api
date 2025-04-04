@@ -1,10 +1,11 @@
 import { model, Schema } from "mongoose";
-import { IModel, modelConfig, modelKeysDefault } from "./utils/default";
+import { IModel, modelConfigDefault, modelKeysDefault } from "./utils/default";
 
 export interface IUser extends IModel {
   avatar?: string;
   name: string;
   email: string;
+  phone: string;
   password: string;
   hour: string;
   turn: string;
@@ -27,6 +28,10 @@ export const userModel = model<IUser>("user", new Schema({
   email: {
     type: String,
     unique: true,
+    required: true,
+  },
+  phone: {
+    type: String,
     required: true,
   },
   password: {
@@ -56,4 +61,4 @@ export const userModel = model<IUser>("user", new Schema({
     required: true,
     ref: "role"
   },
-}, modelConfig));
+}, modelConfigDefault));

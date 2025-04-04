@@ -1,21 +1,20 @@
 import { model, Schema } from "mongoose";
 import { IModel, modelConfigDefault, modelKeysDefault } from "./utils/default";
 
-export interface IRole extends IModel {
-    name: string;
-    tag: string;
+export interface IMessage extends IModel {
+    phone: string;
+    message: string;
 }
 
-export const roleModel = model<IRole>("role", new Schema({
+export const messageModel = model<IMessage>("message", new Schema({
     ...modelKeysDefault,
-    name: {
+    phone: {
         type: String,
         required: true,
     },
-    tag: {
+    message: {
         type: String,
         required: true,
-    },
-}
-    , modelConfigDefault
+    }
+},modelConfigDefault
 ));

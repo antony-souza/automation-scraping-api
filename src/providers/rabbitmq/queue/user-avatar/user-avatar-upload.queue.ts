@@ -28,5 +28,6 @@ export class UserAvatarUploadQueue implements IRabbitMqQueue {
 		const url = await serviceUpload.upload(imageBuffer);
 
 		await userModel.updateOne({ _id: userId }, { $set: { avatar: url } });
+		
 	}
 }
