@@ -5,7 +5,7 @@ import { WhatsAppProvider } from "./whatsapp/whatsapp.provider";
 
 const providerList: IProvider[] = [
 	new RabbitmqProvider(),
-  new WhatsAppProvider()
+  //new WhatsAppProvider()
 ];
 
 export class ProvidersInit {
