@@ -1,8 +1,8 @@
 {
   "scripts": {
     "start": "tsx watch --env-file=.env src/bootstrap.ts",
-    "start:services": "docker compose --env-file .env -p tom -f docker/docker-compose.services.yml up -d",
-    "stop:services": "docker compose --env-file .env -p tom -f docker/docker-compose.services.yml down"
+    "start:services": "docker compose --env-file .env -p fpe -f docker/docker-compose.services.yml up -d",
+    "stop:services": "docker compose --env-file .env -p fpe -f docker/docker-compose.services.yml down"
   },
   "dependencies": {
     "@types/amqplib": "^0.10.7",
