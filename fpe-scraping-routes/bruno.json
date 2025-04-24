@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "fpe-scraping-routes",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

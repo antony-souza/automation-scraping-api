@@ -1,12 +1,9 @@
 import { Router } from "express";
 import { needKeyApiHeadersMiddleware } from "./middleware/key-headers.middleware";
 import { authApiRoutes } from "./api/modules/auth/auth.routes";
-import { messageRoutes } from "./api/modules/messages/message.routes";
-import { modalityRoutes } from "./api/modules/modality/modality.routes";
 import { userRoutes } from "./api/modules/user/user.routes";
-import { spaceRoutes } from "./api/modules/space/space.routes";
 import { roleRoutes } from "./api/modules/role/role.routes";
-/* import { needAuthWithTokenMiddleware } from "./middleware/auth.middleware"; */
+import { scrapingRoutes } from "./api/modules/scraping/scraping.routes";
 
 export const routes = Router();
 
@@ -15,7 +12,5 @@ routes.use("/auth", authApiRoutes);
 
 /* routes.use(needAuthWithTokenMiddleware) */
 routes.use("/user", userRoutes);
-routes.use("/space", spaceRoutes);
-routes.use("/modality", modalityRoutes) ;
-routes.use("/whatsapp", messageRoutes);
 routes.use("/role", roleRoutes);
+routes.use("/scraping", scrapingRoutes);
