@@ -1,3 +1,7 @@
-import { IMessage } from "@src/models/message.model";
+
+interface IMessage {
+    phone: string;
+    message: string;
+}
 
 export type Message = IMessage;

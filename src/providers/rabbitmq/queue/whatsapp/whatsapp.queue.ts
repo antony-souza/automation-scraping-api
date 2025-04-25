@@ -9,6 +9,7 @@ export class SendMessageWithWhatsAppQueue implements IRabbitMqQueue {
 
         const {phone, message} = data
         const service = new WhatsAppService()
+        console.log("Enviando mensagem para o WhatsApp:", phone, message)
         await service.handler({ phone, message })
         
     }
