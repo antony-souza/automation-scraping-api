@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AuthFpeUseCase } from "./usecase/AuthFpeUseCase";
+import { AuthFpeUseCase } from "./usecase/check-payments-studeo.usecase";
 import { genericResponseControllerUtil } from "../utils/generic-response";
 
 export class ScrapingController {

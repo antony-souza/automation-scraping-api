@@ -1,16 +1,17 @@
 import cron from 'node-cron';
-import { AuthFpeUseCase, AuthFpeData } from '@src/api/modules/scraping/usecase/AuthFpeUseCase';
+import { CheckPaymentsStudeoUseCase } from '@src/api/modules/scraping/usecase/check-payments-studeo.usecase';
 import { userModel } from '@src/models/user.model';
 import { IJobs } from '../interfaces/jobs.interface';
+import { logger } from '@src/utils/logger.utils';
 
 export class CheckPaymentsStudeo implements IJobs {
     jobName = 'checkPaymentsStudeo';
 
     async handler() {
-        cron.schedule('00 00 1,2,3 * *', async () => {
-            console.log('[CRON] Executando AuthFpeUseCase...');
+        cron.schedule('00 00 1,2,3,4,5 * *', async () => {
+            logger.info('[JOB] Executando CheckPaymentsStudeo..');
 
-            const useCase = new AuthFpeUseCase();
+            const useCase = new CheckPaymentsStudeoUseCase();
 
             const usersData = await userModel.find({
                 services: { $in: ['check_payment_studeo'] }
@@ -20,10 +21,10 @@ export class CheckPaymentsStudeo implements IJobs {
                 try {
                     await useCase.handler(user.phone, user.name,user.usernameStudeo, user.passwordStudeo);
 
-                    console.log(`✅ Executado para ${user.name}`);
+                    logger.info(`✅ Executado para ${user.name}`);
 
                 } catch (err) {
-                    console.error(`❌ Erro ao executar para ${user.name}:`, err);
+                    logger.error(`❌ Erro ao executar para ${user.name}:`, err);
                 }
             }
         }, {

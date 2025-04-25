@@ -10,7 +10,7 @@ export type AuthFpeData = {
     passwordStudeo: string;
 }
 
-export class AuthFpeUseCase implements ICaseContract {
+export class CheckPaymentsStudeoUseCase implements ICaseContract {
     async handler(phone: string, name: string, usernameStudeo: string, passwordStudeo: string) {
 
         if (!usernameStudeo || !passwordStudeo) {
@@ -31,14 +31,14 @@ export class AuthFpeUseCase implements ICaseContract {
             waitUntil: "load",
         });
 
-        console.log("Título:", await studeoPage.title());
+        logger.info("Título:", await studeoPage.title());
 
         await studeoPage.click("div[title='Aceitar']");
         await studeoPage.fill("input[name='username']", usernameStudeo);
         await studeoPage.fill("input[name='password']", passwordStudeo);
         await studeoPage.click("button[type='submit']");
 
-        console.log("Autenticação Studeo concluída com sucesso!");
+        logger.info("Autenticação Studeo concluída com sucesso!");
 
 
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/access/rules");
