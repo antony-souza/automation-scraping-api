@@ -22,7 +22,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
 
         const sendMessageFpePaymentsUseCase = new SendMessageFpePaymentsUseCase();
         const browser = await chromium.launch({
-            headless: false,
+            headless: true,
         });
 
         const context = await browser.newContext();

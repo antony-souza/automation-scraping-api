@@ -2,7 +2,6 @@ import { IJobs } from "./interfaces/jobs.interface";
 import { CheckPaymentsStudeo } from "./usecase/check-paymnet-studeo";
 
 
-
 const jobsList: IJobs[] = [
    new CheckPaymentsStudeo(),
 ];
