@@ -48,12 +48,13 @@ export class AuthFpeUseCase implements ICaseContract {
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/app/studeo/aluno/ambiente/financeiro");
         await studeoPage.click(".main-box-title-cobrancas");
 
-        const rows = await studeoPage.$$eval("#tablecobrancas tbody tr", rows => {
+        const rows = await studeoPage.$$eval("#tablecobrancas tbody tr", (rows: HTMLElement[]) => {
             return rows.map(row => {
                 const columns = row.querySelectorAll("td");
-                return Array.from(columns).map(col => col.textContent?.trim());
+                return Array.from(columns).map((col: Element) => col.textContent?.trim() || "");
             });
         });
+        
 
         if (rows.length === 0) {
 
