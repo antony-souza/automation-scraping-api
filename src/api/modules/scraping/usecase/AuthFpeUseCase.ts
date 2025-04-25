@@ -11,7 +11,7 @@ export type AuthFpeData = {
 }
 
 export class AuthFpeUseCase implements ICaseContract {
-    async handler(phone:string,name:string,usernameStudeo: string, passwordStudeo: string) {
+    async handler(phone: string, name: string, usernameStudeo: string, passwordStudeo: string) {
 
         if (!usernameStudeo || !passwordStudeo) {
             return {
@@ -40,8 +40,22 @@ export class AuthFpeUseCase implements ICaseContract {
 
         console.log("Autenticação Studeo concluída com sucesso!");
 
+
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/access/rules");
-        await studeoPage.click("button:has-text('Ignorar avisos')");
+
+        try {
+            const ignoreButton = await studeoPage.waitForSelector("button:has-text('Ignorar avisos')", {
+                state: 'visible',
+                timeout: 5000
+            });
+
+            if (ignoreButton) {
+                await ignoreButton.click();
+            }
+        } catch (error) {
+            logger.info("Botão 'Ignorar avisos' não encontrado, seguindo com a execução.");
+        }
+
 
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/app/home");
         await studeoPage.click("span:has-text('Financeiro')");
@@ -54,12 +68,12 @@ export class AuthFpeUseCase implements ICaseContract {
                 return Array.from(columns).map((col: Element) => col.textContent?.trim() || "");
             });
         });
-        
+
 
         if (rows.length === 0) {
 
             await sendMessageFpePaymentsUseCase.handler(phone, notPaymentMessage(name));
-
+            await browser.close();
             return {
                 message: "Não há cobranças pendentes, enviamos mensagem para o aluno",
                 errors: []
@@ -67,7 +81,7 @@ export class AuthFpeUseCase implements ICaseContract {
         }
 
         logger.info("Tabela de cobranças:", rows);
-    
+
 
         /* const fpePage = await context.newPage();
         await fpePage.goto("https://www.churchofjesuschrist.org/?lang=por", {

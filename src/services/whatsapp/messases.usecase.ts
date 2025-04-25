@@ -1,4 +1,4 @@
-export const notPaymentMessage = (name: string) => `✅ Olá ${name}! Verificamos aqui e está tudo certo com seus pagamentos.
+export const notPaymentMessage = (name: string) => `✅ Olá ${name}! Verificamos aqui e está tudo certo com seus pagamentos da Unicesumar.
 
 Não há nenhuma pendência no momento. Pode ficar tranquilo(a)! 😄
 
