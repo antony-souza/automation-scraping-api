@@ -7,7 +7,10 @@ export interface IUser extends IModel {
   email: string;
   phone: string;
   password: string;
-  role: string
+  role: string;
+  usernameStudeo: string;
+  passwordStudeo: string;
+  services: string[]
 }
 
 export const userModel = model<IUser>("user", new Schema({
@@ -38,5 +41,18 @@ export const userModel = model<IUser>("user", new Schema({
     type: String,
     required: true,
     ref: "role"
+  },
+  usernameStudeo: {
+    type: String,
+    required: true,
+  },
+  passwordStudeo: {
+    type: String,
+    required: true,
+  },
+  services: {
+    type: [String],
+    required: true,
+    default: [],
   },
 }, modelConfigDefault));

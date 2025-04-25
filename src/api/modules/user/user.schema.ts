@@ -5,10 +5,7 @@ export const userSchema = z.object({
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone deve ter pelo menos 10 caracteres"),
   password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
-  hour: z.string(),
-  turn: z.string(),
-  space: z.string(),
-  modality: z.string(),
   role: z.string(),
+  services: z.array(z.string()),
 });
 

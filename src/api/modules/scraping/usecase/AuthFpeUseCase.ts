@@ -1,5 +1,6 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
-import { messagesWhatsapp } from "@src/services/whatsapp/messases.usecase";
+import { userModel } from "@src/models/user.model";
+import { notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
 import { SendMessageFpePaymentsUseCase } from "@src/services/whatsapp/usecase/send-message-fpe-payments.usecase";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";
@@ -7,20 +8,19 @@ import { chromium } from "playwright";
 export type AuthFpeData = {
     usernameStudeo: string;
     passwordStudeo: string;
-    usernameFpe: string;
-    passwordFpe: string;
 }
 
 export class AuthFpeUseCase implements ICaseContract {
-    async handler(data: AuthFpeData) {
+    async handler(phone:string,name:string,usernameStudeo: string, passwordStudeo: string) {
 
-        if (!data) {
+        if (!usernameStudeo || !passwordStudeo) {
             return {
                 message: "Oops!",
                 errors: ["Dados não informados"],
             }
         }
 
+        const sendMessageFpePaymentsUseCase = new SendMessageFpePaymentsUseCase();
         const browser = await chromium.launch({
             headless: false,
         });
@@ -34,8 +34,8 @@ export class AuthFpeUseCase implements ICaseContract {
         console.log("Título:", await studeoPage.title());
 
         await studeoPage.click("div[title='Aceitar']");
-        await studeoPage.fill("input[name='username']", data.usernameStudeo);
-        await studeoPage.fill("input[name='password']", data.passwordStudeo);
+        await studeoPage.fill("input[name='username']", usernameStudeo);
+        await studeoPage.fill("input[name='password']", passwordStudeo);
         await studeoPage.click("button[type='submit']");
 
         console.log("Autenticação Studeo concluída com sucesso!");
@@ -56,13 +56,8 @@ export class AuthFpeUseCase implements ICaseContract {
         });
 
         if (rows.length === 0) {
-            const usecase = new SendMessageFpePaymentsUseCase();
-            const phone = "7488152367";
-            const message = `✅ Olá! Verificamos aqui e está tudo certo com seus pagamentos.
 
-Não há nenhuma pendência no momento. Pode ficar tranquilo(a)! 😄`
-
-            await usecase.handler(phone, message);
+            await sendMessageFpePaymentsUseCase.handler(phone, notPaymentMessage(name));
 
             return {
                 message: "Não há cobranças pendentes, enviamos mensagem para o aluno",

@@ -1,0 +1,28 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}:{{port}}/user/create
+  body: json
+  auth: none
+}
+
+headers {
+  api-key: {{api-key}}
+}
+
+body:json {
+  {
+    "name":"Antony Souza",
+    "email":"antonysouza.duckenterprise@gmail.com",
+    "password":"antony123",
+    "phone":"7488152367",
+    "role":"admin",
+    "usernameStudeo":"09319437521",
+    "passwordStudeo":"2011816-Ref",
+    "services":["check_payment_studeo"]
+  }
+}

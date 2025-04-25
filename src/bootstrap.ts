@@ -5,6 +5,8 @@ import { ProvidersInit } from "./providers/provider";
 import { routes } from "./routes";
 import cors from "cors";
 import { logger } from "./utils/logger.utils";
+import { JobsInit } from "./jobs/jobs";
+import { ScheduleMonthlyFpeAuth } from "./jobs/usecase/search-payments-studeo.usecase";
 
 async function bootstrap() {
     const app = express();
@@ -20,6 +22,7 @@ async function bootstrap() {
     });
 
     await ProvidersInit.handler();
+    await JobsInit.handler();
 
     process.on("uncaughtException", (err) => {
         logger.error(err);
