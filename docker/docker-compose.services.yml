@@ -1,7 +1,7 @@
 services:
   rabbitmq:
     image: rabbitmq:management
-    container_name: rabbitmq_fpe
+    container_name: rabbitmq_automation_scraping_api
     restart: always
     env_file:
       - ../.env
@@ -15,13 +15,13 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - fpe_network
+      - automation_scraping_api_network
 
 volumes:
   rabbitmq_data:
     driver: local
 
 networks:
-  fpe_network:
-    name: fpe_network
+  automation_scraping_api_network:
+    name: automation_scraping_api_network
     driver: bridge
