@@ -13,4 +13,4 @@ routes.use("/auth", authApiRoutes);
 /* routes.use(needAuthWithTokenMiddleware) */
 routes.use("/user", userRoutes);
 routes.use("/role", roleRoutes);
-routes.use("/scraping", scrapingRoutes);
+/* routes.use("/scraping", scrapingRoutes); */

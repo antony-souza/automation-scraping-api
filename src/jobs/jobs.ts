@@ -1,9 +1,9 @@
 import { IJobs } from "./interfaces/jobs.interface";
-import { CheckPaymentsStudeo } from "./usecase/check-paymnet-studeo";
+import { CheckPaymentsStudeoJob } from "./usecase/check-paymnet-studeo.job";
 
 
 const jobsList: IJobs[] = [
-   new CheckPaymentsStudeo(),
+   new CheckPaymentsStudeoJob(),
 ];
 
 export class JobsInit {

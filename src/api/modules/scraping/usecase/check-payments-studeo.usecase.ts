@@ -1,14 +1,9 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
-import { userModel } from "@src/models/user.model";
-import { notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
+import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
 import { SendMessageFpePaymentsUseCase } from "@src/services/whatsapp/usecase/send-message-fpe-payments.usecase";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";
 
-export type AuthFpeData = {
-    usernameStudeo: string;
-    passwordStudeo: string;
-}
 
 export class CheckPaymentsStudeoUseCase implements ICaseContract {
     async handler(phone: string, name: string, usernameStudeo: string, passwordStudeo: string) {
@@ -22,7 +17,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
 
         const sendMessageFpePaymentsUseCase = new SendMessageFpePaymentsUseCase();
         const browser = await chromium.launch({
-            headless: true,
+            headless: false,
         });
 
         const context = await browser.newContext();
@@ -75,14 +70,19 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
             await sendMessageFpePaymentsUseCase.handler(phone, notPaymentMessage(name));
             await browser.close();
             return {
-                message: "Não há cobranças pendentes, enviamos mensagem para o aluno",
+                message: "Não há cobranças pendentes, enviamos mensagem para o aluno!",
                 errors: []
             }
         }
 
-        logger.info("Tabela de cobranças:", rows);
+        await sendMessageFpePaymentsUseCase.handler(phone, needPaymentMessage(name));
+        await browser.close();
 
 
+        return {
+            message: "Existem cobranças pendentes, enviamos mensagem para o aluno!",
+            errors: []
+        }
         /* const fpePage = await context.newPage();
         await fpePage.goto("https://www.churchofjesuschrist.org/?lang=por", {
             waitUntil: "load",
@@ -104,10 +104,5 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
         await fpePage.click("input[value='Verificar']")
 
         console.log("Autenticação FPE concluída com sucesso!"); */
-
-        return {
-            message: "Autenticado com sucesso",
-            errors: []
-        }
     }
 }

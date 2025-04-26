@@ -4,17 +4,18 @@ import { userModel } from '@src/models/user.model';
 import { IJobs } from '../interfaces/jobs.interface';
 import { logger } from '@src/utils/logger.utils';
 
-export class CheckPaymentsStudeo implements IJobs {
+export class CheckPaymentsStudeoJob implements IJobs {
     jobName = 'checkPaymentsStudeo';
 
     async handler() {
-        cron.schedule('00 00 1,2,3,4,5 * *', async () => {
+        cron.schedule('47 11 26 * *', async () => {
             logger.info('[JOB] Executando CheckPaymentsStudeo..');
 
             const useCase = new CheckPaymentsStudeoUseCase();
 
             const usersData = await userModel.find({
-                services: { $in: ['check_payment_studeo'] }
+                /* services: { $in: ['check_payment_studeo'] } */
+                name:"Antony Souza"
             });
 
             for (const user of usersData) {

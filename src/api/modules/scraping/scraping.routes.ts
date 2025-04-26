@@ -7,7 +7,7 @@ const controller = new ScrapingController();
 
 export const scrapingRoutes = Router();
 
-scrapingRoutes.post("/fpe/auth",
+/* scrapingRoutes.post("/fpe/auth",
     validationBodyMiddleware(fpeScmea),
     controller.authFpe
-);
+) */
