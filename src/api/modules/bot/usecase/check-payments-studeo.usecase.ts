@@ -1,6 +1,6 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
 import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
-import { SendMessageForWhatsAppGeneric } from "@src/services/whatsapp/send-message-generic.service";
+import { SendMessageForQueueWhatsGeneric } from "@src/services/whatsapp/send-message-generic.service";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";
 
@@ -15,7 +15,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
             }
         }
 
-        const sendMessageForWhtsAppService = new SendMessageForWhatsAppGeneric();
+        const sendMessageForWhtsAppService = new SendMessageForQueueWhatsGeneric();
         const browser = await chromium.launch({
             headless: false,
         });

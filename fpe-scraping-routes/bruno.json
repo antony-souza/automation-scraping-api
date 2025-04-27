@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "automation-scraping-api-routes",
+  "name": "automation-api-routes",
   "type": "collection",
   "ignore": [
     "node_modules",

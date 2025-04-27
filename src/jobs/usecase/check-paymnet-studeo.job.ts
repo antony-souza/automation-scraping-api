@@ -1,8 +1,8 @@
 import cron from 'node-cron';
-import { CheckPaymentsStudeoUseCase } from '@src/api/modules/scraping/usecase/check-payments-studeo.usecase';
 import { userModel } from '@src/models/user.model';
 import { IJobs } from '../interfaces/jobs.interface';
 import { logger } from '@src/utils/logger.utils';
+import { CheckPaymentsStudeoUseCase } from '@src/api/modules/bot/usecase/check-payments-studeo.usecase';
 
 export class CheckPaymentsStudeoJob implements IJobs {
     jobName = 'checkPaymentsStudeo';

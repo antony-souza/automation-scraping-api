@@ -4,7 +4,7 @@ import { needPaymentMessage, notPaymentMessage } from "../messases.usecase";
 import { logger } from "@src/utils/logger.utils";
 import { userModel } from "@src/models/user.model";
 import { chromium } from "playwright";
-import { SendMessageForWhatsAppGeneric } from "../send-message-generic.service";
+import { SendMessageForQueueWhatsGeneric } from "../send-message-generic.service";
 
 export class IterationWhatsAppService {
 
@@ -19,7 +19,7 @@ export class IterationWhatsAppService {
 
         const { client } = provider.getConfig();
 
-        const sendMessageForWhtsAppService = new SendMessageForWhatsAppGeneric();
+        const sendMessageForWhtsAppService = new SendMessageForQueueWhatsGeneric();
 
         client.on("message", async (message: Message) => {
             const messageTrim = message.body.toLowerCase().trim();
@@ -35,7 +35,7 @@ export class IterationWhatsAppService {
                 });
 
                 if (!user) {
-                    await client.sendMessage(message.from, "⚠️ O username informado não foi encontrado em nosso sistema. Use */consultar*, e tente novamente.");
+                    await client.sendMessage(message.from, "⚠️ O username informado não foi encontrado em nosso sistema. Use *!consultar*, e tente novamente.");
                     this._pendingUsername.delete(message.from);
                     return;
                 }
@@ -109,7 +109,7 @@ export class IterationWhatsAppService {
                 return;
             }
 
-            if (messageTrim === "/consultar") {
+            if (messageTrim === "!consultar") {
                 const contactName = this._contactName.get(message.from);
                 await client.sendMessage(message.from, `🔍 Olá ${contactName}! Para consultar seus pagamentos, precisamos do seu username no Studeo.\n\n *Por favor, informe apenas o username corretamente*, sem espaços ou caracteres especiais.`);
                 this._pendingUsername.set(message.from, true);
