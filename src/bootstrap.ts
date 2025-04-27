@@ -6,6 +6,7 @@ import { routes } from "./routes";
 import cors from "cors";
 import { logger } from "./utils/logger.utils";
 import { JobsInit } from "./jobs/jobs";
+import { InitServices } from "./services/init-services.service";
 
 async function bootstrap() {
     const app = express();
@@ -19,7 +20,8 @@ async function bootstrap() {
         logger.info("Connected to DB");
     });
 
-    await ProvidersInit.handler();
+    await ProvidersInit.handler()
+    await InitServices.handler();
     await JobsInit.handler();
 
     process.on("uncaughtException", (err) => {

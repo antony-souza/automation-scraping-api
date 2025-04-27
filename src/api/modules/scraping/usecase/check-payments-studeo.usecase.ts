@@ -1,6 +1,6 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
 import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
-import { SendMessageForWhatsAppGeneric } from "@src/services/whatsapp/usecase/send-message-generic.service";
+import { SendMessageForWhatsAppGeneric } from "@src/services/whatsapp/send-message-generic.service";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";
 
