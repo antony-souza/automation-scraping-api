@@ -1,6 +1,6 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
 import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
-import { SendMessageFpePaymentsUseCase } from "@src/services/whatsapp/usecase/send-message-fpe-payments.usecase";
+import { SendMessageForWhatsAppGeneric } from "@src/services/whatsapp/usecase/send-message-generic.service";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";
 
@@ -15,7 +15,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
             }
         }
 
-        const sendMessageFpePaymentsUseCase = new SendMessageFpePaymentsUseCase();
+        const sendMessageForWhtsAppService = new SendMessageForWhatsAppGeneric();
         const browser = await chromium.launch({
             headless: false,
         });
@@ -67,7 +67,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
 
         if (rows.length === 0) {
 
-            await sendMessageFpePaymentsUseCase.handler(phone, notPaymentMessage(name));
+            await sendMessageForWhtsAppService.handler(phone, notPaymentMessage(name));
             await browser.close();
             return {
                 message: "Não há cobranças pendentes, enviamos mensagem para o aluno!",
@@ -75,7 +75,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
             }
         }
 
-        await sendMessageFpePaymentsUseCase.handler(phone, needPaymentMessage(name));
+        await sendMessageForWhtsAppService.handler(phone, needPaymentMessage(name));
         await browser.close();
 
 

@@ -5,20 +5,11 @@ meta {
 }
 
 post {
-  url: http://{{host}}:{{port}}/scraping/fpe/auth
-  body: json
+  url: http://{{host}}:{{port}}/scraping/fpe/sendpdf
+  body: none
   auth: none
 }
 
 headers {
   api-key: {{api-key}}
-}
-
-body:json {
-  {
-    "usernameStudeo":"09319437521",
-    "passwordStudeo":"2011816-Ref",
-    "usernameFpe":"antony.gustavo3",
-    "passwordFpe":"2011816-REF@churchofjesuschrist.org"
-  }
 }

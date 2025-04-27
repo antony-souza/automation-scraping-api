@@ -11,7 +11,8 @@ export class WhatsAppService {
         const { client } = provider.getConfig();
         const phone = this.formatPhone(data.phone);
 
-        await client.sendMessage(`${phone}@c.us`, data.message);
+        const sendMessage = await client.sendMessage(`${phone}@c.us`, data.message);
+        console.log("Mensagem enviada com sucesso", sendMessage);
     }
 
     private formatPhone(phone: string): string {

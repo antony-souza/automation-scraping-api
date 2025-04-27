@@ -3,7 +3,6 @@ import { needKeyApiHeadersMiddleware } from "./middleware/key-headers.middleware
 import { authApiRoutes } from "./api/modules/auth/auth.routes";
 import { userRoutes } from "./api/modules/user/user.routes";
 import { roleRoutes } from "./api/modules/role/role.routes";
-import { scrapingRoutes } from "./api/modules/scraping/scraping.routes";
 
 export const routes = Router();
 

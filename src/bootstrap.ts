@@ -13,7 +13,6 @@ async function bootstrap() {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(cors());
-
     app.use(routes);
 
     await mongoose.connect(environment.mongoUrl).then(() => {

@@ -10,6 +10,6 @@ export class JobsInit {
     static async handler() {
         for (const job of jobsList) {
             await job.handler();
-        }
+        };
     }
 }
