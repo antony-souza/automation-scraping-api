@@ -8,7 +8,7 @@ import { SendMessageForQueueWhatsGeneric } from "../send-message-generic.service
 
 export class IterationWhatsAppService {
 
-    private _pendingUsername = new Map<string, boolean>();
+    private _pendingUsernameStudeo = new Map<string, boolean>();
     private _contactName = new Map<string, string>();
 
     async handler() {
@@ -27,7 +27,7 @@ export class IterationWhatsAppService {
             const contactName = contact.pushname || contact.verifiedName || contact.number;
             this._contactName.set(message.from, contactName);
 
-            if (this._pendingUsername.has(message.from)) {
+            if (this._pendingUsernameStudeo.has(message.from)) {
                 const username = messageTrim;
 
                 const user = await userModel.findOne({
@@ -36,7 +36,7 @@ export class IterationWhatsAppService {
 
                 if (!user) {
                     await client.sendMessage(message.from, "⚠️ O username informado não foi encontrado em nosso sistema. Use *!consultar*, e tente novamente.");
-                    this._pendingUsername.delete(message.from);
+                    this._pendingUsernameStudeo.delete(message.from);
                     return;
                 }
 
@@ -94,7 +94,7 @@ export class IterationWhatsAppService {
 
                     await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
                     await browser.close();
-                    this._pendingUsername.delete(message.from);
+                    this._pendingUsernameStudeo.delete(message.from);
 
                     return {
                         message: "Não há cobranças pendentes, enviamos mensagem para o aluno!",
@@ -105,14 +105,14 @@ export class IterationWhatsAppService {
                 await sendMessageForWhtsAppService.handler(user.phone, needPaymentMessage(user.name));
                 await browser.close();
 
-                this._pendingUsername.delete(message.from);
+                this._pendingUsernameStudeo.delete(message.from);
                 return;
             }
 
             if (messageTrim === "!consultar") {
                 const contactName = this._contactName.get(message.from);
                 await client.sendMessage(message.from, `🔍 Olá ${contactName}! Para consultar seus pagamentos, precisamos do seu username no Studeo.\n\n *Por favor, informe apenas o username corretamente*, sem espaços ou caracteres especiais.`);
-                this._pendingUsername.set(message.from, true);
+                this._pendingUsernameStudeo.set(message.from, true);
                 return;
             }
             if(messageTrim === "obrigado"){
