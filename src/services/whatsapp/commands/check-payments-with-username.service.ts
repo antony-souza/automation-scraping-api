@@ -98,7 +98,7 @@ export class IterationWhatsAppService {
                             !titulo.toLowerCase().includes("não existem dados");
 
                         if (isLinhaValida) {
-                            boletosPendentes += `🔸 *${titulo}*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
+                            boletosPendentes += `🔸 *Mensalidade*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
                         }
                     }
 
