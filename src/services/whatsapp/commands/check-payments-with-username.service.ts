@@ -77,32 +77,34 @@ export class IterationWhatsAppService {
                 let boletosPendentes = "";
 
                 if (tbody) {
-                    const rows = await tbody.$$("tr");
+                    const boletosTable = await tbody.$$("tr");
 
-                    for (const row of rows) {
-                        const cells = await row.$$("td");
+                    for (const boleto of boletosTable) {
+                        const columns = await boleto.$$("td");
                         const rowData: string[] = [];
 
-                        for (const cell of cells) {
-                            const text = await cell.innerText();
-                            rowData.push(text.trim());
+                        for (const column of columns) {
+                            const dataColumn = await column.innerText();
+                            rowData.push(dataColumn.trim());
                         }
 
                         const titulo = rowData[0]?.replace(/\n+/g, " ");
                         const valor = rowData[1]?.replace(/\n+/g, " ");
                         const vencimento = rowData[3]?.replace(/\n+/g, " ");
 
-                        boletosPendentes += `🔸 *${titulo}*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
+                        boletosPendentes +=`🔸 *${titulo}*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
                     }
 
-                    if (rows.length === 0 || boletosPendentes.trim() === "") {
+                    if (boletosTable.length === 0 || boletosPendentes.trim() === "") {
                         await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
-                    } else {
-                        await sendMessageForWhtsAppService.handler(user.phone, needPaymentMessage(user.name, boletosPendentes));
                     }
-                } else {
-                    await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
+                    await sendMessageForWhtsAppService.handler(user.phone, needPaymentMessage(user.name, boletosPendentes));
+
+                    await browser.close();
+                    this._pendingUsernameStudeo.delete(message.from);
+                    return;
                 }
+                await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
 
                 await browser.close();
                 this._pendingUsernameStudeo.delete(message.from);
