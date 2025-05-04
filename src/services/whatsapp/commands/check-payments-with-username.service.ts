@@ -92,18 +92,27 @@ export class IterationWhatsAppService {
                         const valor = rowData[1]?.replace(/\n+/g, " ");
                         const vencimento = rowData[3]?.replace(/\n+/g, " ");
 
-                        boletosPendentes +=`🔸 *${titulo}*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
+                        const isLinhaValida =
+                            titulo && valor && vencimento &&
+                            !titulo.toLowerCase().includes("nenhum dado") &&
+                            !titulo.toLowerCase().includes("não existem dados");
+
+                        if (isLinhaValida) {
+                            boletosPendentes += `🔸 *${titulo}*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
+                        }
                     }
 
                     if (boletosTable.length === 0 || boletosPendentes.trim() === "") {
                         await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
+                    } else {
+                        await sendMessageForWhtsAppService.handler(user.phone, needPaymentMessage(user.name, boletosPendentes));
                     }
-                    await sendMessageForWhtsAppService.handler(user.phone, needPaymentMessage(user.name, boletosPendentes));
 
                     await browser.close();
                     this._pendingUsernameStudeo.delete(message.from);
                     return;
                 }
+
                 await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
 
                 await browser.close();
