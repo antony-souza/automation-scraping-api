@@ -23,6 +23,16 @@ export class IterationWhatsAppService {
             const contactName = contact.pushname || contact.verifiedName || contact.number;
             this._contactName.set(message.from, contactName);
 
+            if (messageTrim === "!consultar") {
+                const contactName = this._contactName.get(message.from);
+                await client.sendMessage(
+                    message.from,
+                    `🔍 Olá ${contactName}! Para consultar seus pagamentos, precisamos do seu username no Studeo.\n\n *Por favor, informe apenas o username corretamente*, sem espaços ou caracteres especiais.`
+                );
+                this._pendingUsernameStudeo.set(message.from, true);
+                return;
+            }
+            
             if (this._pendingUsernameStudeo.has(message.from)) {
                 const username = messageTrim;
 
@@ -112,27 +122,6 @@ export class IterationWhatsAppService {
                     this._pendingUsernameStudeo.delete(message.from);
                     return;
                 }
-
-                await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
-
-                await browser.close();
-                this._pendingUsernameStudeo.delete(message.from);
-                return;
-            }
-
-            if (messageTrim === "!consultar") {
-                const contactName = this._contactName.get(message.from);
-                await client.sendMessage(
-                    message.from,
-                    `🔍 Olá ${contactName}! Para consultar seus pagamentos, precisamos do seu username no Studeo.\n\n *Por favor, informe apenas o username corretamente*, sem espaços ou caracteres especiais.`
-                );
-                this._pendingUsernameStudeo.set(message.from, true);
-                return;
-            }
-
-            if (messageTrim === "obrigado") {
-                await client.sendMessage(message.from, `De nada ${contactName}! Se precisar de mais alguma coisa, é só chamar!`);
-                return;
             }
         });
     }
