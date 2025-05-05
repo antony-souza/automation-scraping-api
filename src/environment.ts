@@ -1,4 +1,5 @@
-import * as process from "node:process";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const environment = {
 	port: parseInt(process.env.PORT ?? "4000"),
