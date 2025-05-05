@@ -1,4 +1,3 @@
-import { ICaseContract } from "@src/api/contracts/case.contract";
 import { WhatsAppProvider } from "@src/providers/whatsapp/whatsapp.provider";
 import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
 import { SendMessageForQueueWhatsGeneric } from "@src/services/whatsapp/send-message-generic.service";
@@ -8,11 +7,11 @@ import { chromium } from "playwright";
 
 export class CheckPaymentsStudeoUseCase {
     async handler(phone: string, name: string, usernameStudeo: string, passwordStudeo: string) {
-        
+
         const provider = WhatsAppProvider.Instance;
         if (!provider) return;
-
         const { client } = provider.getConfig();
+        /* const sendMessageForQueueWhatsGeneric = new SendMessageForQueueWhatsGeneric(); */
 
         if (!usernameStudeo || !passwordStudeo) {
             return {
