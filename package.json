@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/bootstrap.js",
-    "dev": "tsx watch src/bootstrap.ts",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "prod": "node dist/bootstrap.js",
+    "dev": "tsx watch --env-file=.env src/bootstrap.ts",
     "start:services": "docker compose --env-file .env -p automation_scraping_api -f docker/docker-compose.services.yml up -d",
     "stop:services": "docker compose --env-file .env -p automation_scraping_api -f docker/docker-compose.services.yml down"
   },
@@ -35,6 +35,7 @@
     "playwright-extra": "^4.3.6",
     "playwright-extra-plugin-stealth": "^0.0.1",
     "qrcode-terminal": "^0.12.0",
+    "tsc-alias": "^1.8.16",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "whatsapp-web.js": "^1.27.0",
