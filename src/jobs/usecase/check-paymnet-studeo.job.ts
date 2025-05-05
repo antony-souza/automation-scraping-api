@@ -8,7 +8,7 @@ export class CheckPaymentsStudeoJob implements IJobs {
     jobName = 'checkPaymentsStudeo';
 
     async handler() {
-        cron.schedule('18 17 5 * *', async () => {
+        cron.schedule('00 00 2,3,4,5 * *', async () => {
             logger.info('[JOB] Executando CheckPaymentsStudeo..');
 
             const useCase = new CheckPaymentsStudeoUseCase();
@@ -19,7 +19,7 @@ export class CheckPaymentsStudeoJob implements IJobs {
 
             for (const user of usersData) {
                 try {
-                    await useCase.handler(user.phone, user.name,user.usernameStudeo, user.passwordStudeo);
+                    await useCase.handler(user.phone, user.name, user.usernameStudeo, user.passwordStudeo);
 
                     logger.info(`Executado para ${user.name}`);
 
