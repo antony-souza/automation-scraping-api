@@ -11,7 +11,7 @@ export class SendRecoveryCodeToEmailQueue implements IRabbitMqQueue {
     queueName: QueueName = "send-code-email";
 
     async handler(data: IRecoveryPasswordSendCodeEmail) {
-        const { email, code, html } = data;
+        /* const { email, code, html } = data;
 
         await codeEmailModule.create({
             email,
@@ -21,6 +21,6 @@ export class SendRecoveryCodeToEmailQueue implements IRabbitMqQueue {
 
         const nodemailerProvider = new NodemailerProvider();
         const subject = "Código de Validação";
-        await nodemailerProvider.sendEmail(email, subject, html)
+        await nodemailerProvider.sendEmail(email, subject, html) */
     }
 }
