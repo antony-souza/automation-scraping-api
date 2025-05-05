@@ -1,12 +1,18 @@
 import { ICaseContract } from "@src/api/contracts/case.contract";
+import { WhatsAppProvider } from "@src/providers/whatsapp/whatsapp.provider";
 import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
 import { SendMessageForQueueWhatsGeneric } from "@src/services/whatsapp/send-message-generic.service";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";
 
 
-export class CheckPaymentsStudeoUseCase implements ICaseContract {
+export class CheckPaymentsStudeoUseCase {
     async handler(phone: string, name: string, usernameStudeo: string, passwordStudeo: string) {
+        
+        const provider = WhatsAppProvider.Instance;
+        if (!provider) return;
+
+        const { client } = provider.getConfig();
 
         if (!usernameStudeo || !passwordStudeo) {
             return {
@@ -15,9 +21,8 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
             }
         }
 
-        const sendMessageForWhtsAppService = new SendMessageForQueueWhatsGeneric();
         const browser = await chromium.launch({
-            headless: false,
+            headless: true,
         });
 
         const context = await browser.newContext();
@@ -33,7 +38,7 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
         await studeoPage.fill("input[name='password']", passwordStudeo);
         await studeoPage.click("button[type='submit']");
 
-        logger.info("Autenticação Studeo concluída com sucesso!");
+        logger.info("Autenticacao Studeo concluida com sucesso!");
 
 
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/access/rules");
@@ -51,58 +56,48 @@ export class CheckPaymentsStudeoUseCase implements ICaseContract {
             logger.info("Botão 'Ignorar avisos' não encontrado, seguindo com a execução.");
         }
 
-
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/app/home");
         await studeoPage.click("span:has-text('Financeiro')");
         await studeoPage.waitForURL("https://studeo.unicesumar.edu.br/#!/app/studeo/aluno/ambiente/financeiro");
         await studeoPage.click(".main-box-title-cobrancas");
 
-        const rows = await studeoPage.$$eval("#tablecobrancas tbody tr", (rows: HTMLElement[]) => {
-            return rows.map(row => {
-                const columns = row.querySelectorAll("td");
-                return Array.from(columns).map((col: Element) => col.textContent?.trim() || "");
-            });
-        });
+        const tbody = await studeoPage.waitForSelector("tbody");
+        let boletosPendentes = "";
 
+        if (tbody) {
+            const boletosTable = await tbody.$$("tr");
 
-        if (rows.length === 0) {
+            for (const boleto of boletosTable) {
+                const columns = await boleto.$$("td");
+                const rowData: string[] = [];
 
-            await sendMessageForWhtsAppService.handler(phone, notPaymentMessage(name));
-            await browser.close();
-            return {
-                message: "Não há cobranças pendentes, enviamos mensagem para o aluno!",
-                errors: []
+                for (const column of columns) {
+                    const dataColumn = await column.innerText();
+                    rowData.push(dataColumn.trim());
+                }
+
+                const titulo = rowData[0]?.replace(/\n+/g, " ");
+                const valor = rowData[1]?.replace(/\n+/g, " ");
+                const vencimento = rowData[3]?.replace(/\n+/g, " ");
+
+                const isLinhaValida =
+                    titulo && valor && vencimento &&
+                    !titulo.toLowerCase().includes("nenhum dado") &&
+                    !titulo.toLowerCase().includes("não existem dados");
+
+                if (isLinhaValida) {
+                    boletosPendentes += `🔸 *Mensalidade*\n💰 ${valor}\n📅 ${vencimento}\n\n`;
+                }
             }
+
+            if (boletosTable.length === 0 || boletosPendentes.trim() === "") {
+                await client.sendMessage(phone, notPaymentMessage(name));
+                await browser.close();
+            } else {
+                await client.sendMessage(phone, needPaymentMessage(name, boletosPendentes));
+                await browser.close();
+            }
+            await browser.close();
         }
-
-        await sendMessageForWhtsAppService.handler(phone, needPaymentMessage(name));
-        await browser.close();
-
-
-        return {
-            message: "Existem cobranças pendentes, enviamos mensagem para o aluno!",
-            errors: []
-        }
-        /* const fpePage = await context.newPage();
-        await fpePage.goto("https://www.churchofjesuschrist.org/?lang=por", {
-            waitUntil: "load",
-        });
-
-        console.log("Título:", await fpePage.title());
-
-        await fpePage.click("#truste-consent-button")
-        await fpePage.waitForSelector("#signInButtonText")
-        await fpePage.click("#signInButtonText")
-    
-        await fpePage.waitForURL("https://id.churchofjesuschrist.org/oauth2/default/v1/authorize*");
-
-        await fpePage.waitForSelector("input[type='text']")
-        await fpePage.fill("input[type='text']",data.usernameFpe)
-        await fpePage.click(".button-primary")
-        await fpePage.waitForSelector('input[type="password"]');
-        await fpePage.fill("input[type='password']", data.passwordFpe)
-        await fpePage.click("input[value='Verificar']")
-
-        console.log("Autenticação FPE concluída com sucesso!"); */
     }
 }

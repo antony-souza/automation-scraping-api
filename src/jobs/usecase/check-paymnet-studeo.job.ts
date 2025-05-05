@@ -8,14 +8,13 @@ export class CheckPaymentsStudeoJob implements IJobs {
     jobName = 'checkPaymentsStudeo';
 
     async handler() {
-        cron.schedule('47 11 26 * *', async () => {
+        cron.schedule('00 00 2,3,4,5,6 * *', async () => {
             logger.info('[JOB] Executando CheckPaymentsStudeo..');
 
             const useCase = new CheckPaymentsStudeoUseCase();
 
             const usersData = await userModel.find({
-                /* services: { $in: ['check_payment_studeo'] } */
-                name:"Antony Souza"
+                services: { $in: ['check_payment_studeo'] }
             });
 
             for (const user of usersData) {

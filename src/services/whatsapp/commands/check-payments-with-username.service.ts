@@ -4,7 +4,6 @@ import { needPaymentMessage, notPaymentMessage } from "../messases.usecase";
 import { logger } from "@src/utils/logger.utils";
 import { userModel } from "@src/models/user.model";
 import { chromium } from "playwright";
-import { SendMessageForQueueWhatsGeneric } from "../send-message-generic.service";
 
 export class IterationWhatsAppService {
     private _pendingUsernameStudeo = new Map<string, boolean>();
@@ -15,7 +14,6 @@ export class IterationWhatsAppService {
         if (!provider) return;
 
         const { client } = provider.getConfig();
-        const sendMessageForWhtsAppService = new SendMessageForQueueWhatsGeneric();
 
         client.on("message", async (message: Message) => {
             const messageTrim = message.body.toLowerCase().trim();
@@ -113,9 +111,9 @@ export class IterationWhatsAppService {
                     }
 
                     if (boletosTable.length === 0 || boletosPendentes.trim() === "") {
-                        await sendMessageForWhtsAppService.handler(user.phone, notPaymentMessage(user.name));
+                        await client.sendMessage(message.from, notPaymentMessage(user.name));
                     } else {
-                        await sendMessageForWhtsAppService.handler(user.phone, needPaymentMessage(user.name, boletosPendentes));
+                        await client.sendMessage(message.from, needPaymentMessage(user.name, boletosPendentes));
                     }
 
                     await browser.close();
