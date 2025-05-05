@@ -1,4 +1,3 @@
-import { WhatsAppProvider } from "@src/providers/whatsapp/whatsapp.provider";
 import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
 import { SendMessageForQueueWhatsGeneric } from "@src/services/whatsapp/send-message-generic.service";
 import { logger } from "@src/utils/logger.utils";
@@ -8,10 +7,7 @@ import { chromium } from "playwright";
 export class CheckPaymentsStudeoUseCase {
     async handler(phone: string, name: string, usernameStudeo: string, passwordStudeo: string) {
 
-        const provider = WhatsAppProvider.Instance;
-        if (!provider) return;
-        const { client } = provider.getConfig();
-        /* const sendMessageForQueueWhatsGeneric = new SendMessageForQueueWhatsGeneric(); */
+        const sendMessageForQueueWhatsGeneric = new SendMessageForQueueWhatsGeneric();
 
         if (!usernameStudeo || !passwordStudeo) {
             return {
@@ -90,10 +86,10 @@ export class CheckPaymentsStudeoUseCase {
             }
 
             if (boletosTable.length === 0 || boletosPendentes.trim() === "") {
-                await client.sendMessage(phone, notPaymentMessage(name));
+                await sendMessageForQueueWhatsGeneric.handler(phone, notPaymentMessage(name));
                 await browser.close();
             } else {
-                await client.sendMessage(phone, needPaymentMessage(name, boletosPendentes));
+                await sendMessageForQueueWhatsGeneric.handler(phone, needPaymentMessage(name, boletosPendentes));
                 await browser.close();
             }
             await browser.close();
