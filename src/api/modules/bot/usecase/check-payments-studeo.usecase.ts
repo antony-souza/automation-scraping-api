@@ -1,4 +1,4 @@
-import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/messases.usecase";
+import { needPaymentMessage, notPaymentMessage } from "@src/services/whatsapp/commands/studeo/messases.usecase";
 import { SendMessageForQueueWhatsGeneric } from "@src/services/whatsapp/send-message-generic.service";
 import { logger } from "@src/utils/logger.utils";
 import { chromium } from "playwright";

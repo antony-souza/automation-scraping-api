@@ -30,4 +30,6 @@ export const environment = {
 	imgurClientId: process.env.IMGUR_CLIENT_ID,
 	imgurClientSecret: process.env.IMGUR_CLIENT_SECRET,
 	whatsappEnabled: process.env.WHATSAPP_ENABLED === "true",
+	nbaApiUrl: process.env.NBA_API_URL,
+	nbaApiKey: process.env.NBA_API_KEY,
 };

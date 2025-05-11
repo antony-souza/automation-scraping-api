@@ -5,7 +5,6 @@ import { logger } from '@src/utils/logger.utils';
 import { CheckPaymentsStudeoUseCase } from '@src/api/modules/bot/usecase/check-payments-studeo.usecase';
 
 export class CheckPaymentsStudeoJob implements IJobs {
-    jobName = 'checkPaymentsStudeo';
 
     async handler() {
         cron.schedule('00 00 2,3,4,5 * *', async () => {
@@ -25,7 +24,6 @@ export class CheckPaymentsStudeoJob implements IJobs {
 
                 } catch (err) {
                     logger.error(`Erro ao executar para ${user.name}:`, err);
-                    console.error(err);
                 }
             }
         }, {

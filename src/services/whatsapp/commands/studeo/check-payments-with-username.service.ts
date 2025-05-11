@@ -1,11 +1,11 @@
 import { WhatsAppProvider } from "@src/providers/whatsapp/whatsapp.provider";
 import { Message } from "whatsapp-web.js";
-import { needPaymentMessage, notPaymentMessage } from "../messases.usecase";
 import { logger } from "@src/utils/logger.utils";
 import { userModel } from "@src/models/user.model";
 import { chromium } from "playwright";
+import { needPaymentMessage, notPaymentMessage } from "./messases.usecase";
 
-export class IterationWhatsAppService {
+export class CheckPaymentsWithUsernameCommandService {
     private _pendingUsernameStudeo = new Map<string, boolean>();
     private _contactName = new Map<string, string>();
 
