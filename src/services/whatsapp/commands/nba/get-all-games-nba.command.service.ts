@@ -31,9 +31,8 @@ export class AllGamesNbaCommandService {
 
             if (messageBody === "/nba") {
                 await client.sendMessage(message.from, "🔎 Buscando os jogos da NBA para hoje...");
-
+                console.log(message.from)
                 const today = new Date().toISOString().split("T")[0];
-                const todayFormatted = new Date().toLocaleDateString("pt-BR");
 
                 try {
                     const response = await axios.get<IResponseNba>(
@@ -59,6 +58,8 @@ export class AllGamesNbaCommandService {
                         });
                         return `🏀 ${game.visitor_team.name}(${game.visitor_team.abbreviation}) vs ${game.home_team.name}(${game.home_team.abbreviation} ) - 🕒 ${gameHour}`;
                     });
+
+                    const todayFormatted = new Date().toLocaleDateString("pt-BR");
 
                     const gameMessage = `*Jogos da NBA - ${todayFormatted}:*\n\n` + gameMessageFormatted.join("\n");
                     await client.sendMessage(message.from, gameMessage);

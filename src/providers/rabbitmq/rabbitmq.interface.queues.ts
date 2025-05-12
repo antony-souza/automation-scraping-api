@@ -3,4 +3,4 @@ export interface IRabbitMqQueue {
     handler: (data: any) => void | Promise<void>;
   }
   
-  export type QueueName = 'avatar' | "send-code-email" |"whatsapp-messages"
+  export type QueueName = 'avatar' | "send-code-email" |"whatsapp-messages" | "whatsapp-messages-group"

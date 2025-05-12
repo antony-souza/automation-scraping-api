@@ -1,5 +1,5 @@
 export type ApiResponse = {
     message: string;
-    errors: string[];
+    errors?: string[];
     data?: any;
   }

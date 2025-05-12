@@ -6,5 +6,6 @@ const controller = new BotController();
 export const botRoutes = Router();
 
 botRoutes.get("/new-feature", controller.sendMessageUpdateBot);
+botRoutes.get("/games-nba-today", controller.sendNbaGamesToday);
 
 

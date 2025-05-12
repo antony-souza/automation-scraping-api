@@ -32,4 +32,5 @@ export const environment = {
 	whatsappEnabled: process.env.WHATSAPP_ENABLED === "true",
 	nbaApiUrl: process.env.NBA_API_URL,
 	nbaApiKey: process.env.NBA_API_KEY,
+	nbaFindDbService: process.env.NBA_FIND_DB_SERVICE ?? "",
 };

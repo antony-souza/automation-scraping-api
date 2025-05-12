@@ -6,5 +6,5 @@ export function genericResponseControllerUtil(data: ApiResponse, res: Response) 
     data.data = {};
   }
 
-  res.status(data.errors.length ? 400 : 200).send(data);
+  res.status(data.errors?.length ? 400 : 200).send(data);
 }
